@@ -7,34 +7,40 @@ logger = logging.getLogger(__name__)
 class APIClient:
     def __init__(self, api_url):
         self.api_url = api_url
+        self.latest_block_data = None  # Cache for the latest block data
+
+    def fetch_latest_block_data(self):
+        """Fetch the latest block data once."""
+        try:
+            response = requests.get(f"{self.api_url}/cosmos/base/tendermint/v1beta1/blocks/latest")
+            response.raise_for_status()
+            self.latest_block_data = response.json()
+            logger.debug(f'Latest block data block: {self.latest_block_data}')
+        except requests.exceptions.RequestException as e:
+            logger.error(f'Error fetching latest block data: {e}')
+            self.latest_block_data = None
 
     def fetch_chain_height(self):
-        try:
-            response = requests.get(f"{self.api_url}/blocks/latest")
-            response.raise_for_status()  # Raises an HTTPError for bad responses
-            data = response.json()
-            logger.debug(f'Chain height data retrieved: {data}')
-            return int(data['block']['header']['height'])  # Extract height
-        except requests.exceptions.RequestException as e:
-            logger.error(f'Error fetching chain height: {e}')
-            return None
-        except (KeyError, ValueError) as e:
-            logger.error(f'Error parsing chain height data: {e}')
-            return None
+        """Return the chain height from cached data."""
+        if self.latest_block_data is None:
+            self.fetch_latest_block_data()  # Fetch data if not already fetched
+        if self.latest_block_data:
+            try:
+                return int(self.latest_block_data['block']['header']['height'])  # Extract height
+            except (KeyError, ValueError) as e:
+                logger.error(f'Error parsing chain height data: {e}')
+                return None
 
     def fetch_chain_id(self):
-        try:
-            response = requests.get(f"{self.api_url}/blocks/latest")
-            response.raise_for_status()
-            data = response.json()
-            logger.debug(f'Chain ID data retrieved: {data}')
-            return data['block']['header']['chain_id']  # Extract chain_id
-        except requests.exceptions.RequestException as e:
-            logger.error(f'Error fetching chain ID: {e}')
-            return None
-        except (KeyError, ValueError) as e:
-            logger.error(f'Error parsing chain ID data: {e}')
-            return None
+        """Return the chain ID from cached data."""
+        if self.latest_block_data is None:
+            self.fetch_latest_block_data()  # Fetch data if not already fetched
+        if self.latest_block_data:
+            try:
+                return self.latest_block_data['block']['header']['chain_id']  # Extract chain_id
+            except (KeyError, ValueError) as e:
+                logger.error(f'Error parsing chain ID data: {e}')
+                return None
 
     def fetch_wallet_balance(self, wallet_address, main_denom):
         try:

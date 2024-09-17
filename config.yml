@@ -12,8 +12,6 @@ nodes:
     api_url: "https://api.sentinel.chaintools.tech:443/"
     host: "ovh-host-08"
     main_denom: "udvpn"
-    validators:
-      - validator_id: "sentvaloper1p3u583ms39yrz7dkcetxdkn4sj66sjau4250pu"
     wallets:
       - address: "sent1p3u583ms39yrz7dkcetxdkn4sj66sjau20tzw4"
       - { address: "sent1vp9xldhdmjfmnwel7nl6tgy8numduq08hf3r8m", type: "relayer" }

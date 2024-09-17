@@ -21,17 +21,17 @@ def fetch_metrics(config):
             logger.debug(f'Fetched chain height {latest_height} for chain {chain_id} on node {node["name"]}')
 
             # Fetch wallet balances
-            for wallet in node['wallets']:
+            for wallet in node.get('wallets', []):
                 wallet_type = wallet.get('type', 'unknown')  # Get type or default to 'unknown'
                 balance = api_client.fetch_wallet_balance(wallet['address'], node['main_denom'])
                 wallet_balance_gauge.labels(chain=node['name'],
                                             chain_id=chain_id,
                                             wallet=wallet['address'],
                                             type=wallet_type).set(balance)
-                logger.debug(f'Fetched wallet balance {balance} in denom {node['main_denom']} for wallet {wallet["address"]}')
+                logger.debug(f'Fetched wallet balance {balance} in denom {node["main_denom"]} for wallet {wallet["address"]}')
 
             # Fetch validator stakes
-            for validator in node['validators']:
+            for validator in node.get('validators', []):
                 stake = api_client.fetch_validator_stake(validator['validator_id'])
                 validator_stake_gauge.labels(chain=node['name'],
                                              chain_id=chain_id,
