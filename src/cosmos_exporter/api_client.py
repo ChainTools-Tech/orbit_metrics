@@ -36,7 +36,6 @@ class APIClient:
             logger.error(f'Error parsing chain ID data: {e}')
             return None
 
-
     def fetch_wallet_balance(self, wallet_address, main_denom):
         try:
             response = requests.get(f"{self.api_url}/cosmos/bank/v1beta1/balances/{wallet_address}")

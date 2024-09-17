@@ -6,15 +6,10 @@ def get_log_level(level_str):
     try:
         return getattr(logging, level_str.upper())
     except AttributeError:
-        # Default to INFO if invalid log level is provided
         return logging.INFO
 
 
 def setup_logging(log_file, log_level=logging.INFO):
-    """
-    Sets up the logging configuration, ensuring no duplicate handlers.
-    """
-    # Define log formatter
     log_formatter = logging.Formatter(
         '[%(asctime)s] [%(levelname)-8s] %(name)s: (%(module)s, %(funcName)s): %(message)s',
         datefmt='%Y-%m-%d %H:%M:%S'

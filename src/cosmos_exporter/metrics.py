@@ -1,7 +1,6 @@
 from prometheus_client import Gauge
 
 
-# Define metrics
 chain_height_gauge = Gauge('blockchain_chain_height',
                            'Current block height of the blockchain',
                            ['chain', 'chain_id', 'host'])
