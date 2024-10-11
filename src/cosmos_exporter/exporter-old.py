@@ -14,24 +14,28 @@ def fetch_metrics(config):
 
             # Fetch chain height
             latest_height = api_client.fetch_chain_height()
-            chain_id = api_client.chain_id  # Fetch the chain ID from APIClient
-            moniker = api_client.moniker  # Fetch the moniker from APIClient
-
-            # Use moniker in the metrics instead of host
-            chain_height_gauge.labels(chain=node['name'], chain_id=chain_id, host=moniker).set(latest_height)
-            logger.debug(f'Fetched chain height {latest_height} for chain {chain_id} on node {node["name"]} with moniker {moniker}')
+            chain_id = api_client.fetch_chain_id()  # Fetch the chain ID as well
+            chain_height_gauge.labels(chain=node['name'],
+                                      chain_id=chain_id,
+                                      host=node['host']).set(latest_height)
+            logger.debug(f'Fetched chain height {latest_height} for chain {chain_id} on node {node["name"]}')
 
             # Fetch wallet balances
             for wallet in node.get('wallets', []):
                 wallet_type = wallet.get('type', 'unknown')  # Get type or default to 'unknown'
                 balance = api_client.fetch_wallet_balance(wallet['address'], node['main_denom'])
-                wallet_balance_gauge.labels(chain=node['name'], chain_id=chain_id, wallet=wallet['address'], type=wallet_type).set(balance)
+                wallet_balance_gauge.labels(chain=node['name'],
+                                            chain_id=chain_id,
+                                            wallet=wallet['address'],
+                                            type=wallet_type).set(balance)
                 logger.debug(f'Fetched wallet balance {balance} in denom {node["main_denom"]} for wallet {wallet["address"]}')
 
             # Fetch validator stakes
             for validator in node.get('validators', []):
                 stake = api_client.fetch_validator_stake(validator['validator_id'])
-                validator_stake_gauge.labels(chain=node['name'], chain_id=chain_id, validator=validator['validator_id']).set(stake)
+                validator_stake_gauge.labels(chain=node['name'],
+                                             chain_id=chain_id,
+                                             validator=validator['validator_id']).set(stake)
                 logger.debug(f'Fetched stake {stake} for validator {validator["validator_id"]}')
 
             # Fetch distribution parameters
@@ -40,7 +44,8 @@ def fetch_metrics(config):
                 community_tax_gauge.labels(chain=node['name']).set(float(params['community_tax']))
                 base_proposer_reward_gauge.labels(chain=node['name']).set(float(params['base_proposer_reward']))
                 bonus_proposer_reward_gauge.labels(chain=node['name']).set(float(params['bonus_proposer_reward']))
-                withdraw_addr_enabled_gauge.labels(chain=node['name']).set(1 if params['withdraw_addr_enabled'] else 0)
+                withdraw_addr_enabled_gauge.labels(chain=node['name']).set(
+                    1 if params['withdraw_addr_enabled'] else 0)
 
             # Fetch mint parameters
             mint_params = api_client.fetch_mint_params()
