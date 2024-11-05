@@ -1,7 +1,7 @@
 # tests/test_config.py
 
 import pytest
-from cosmos_exporter.config import load_config
+from orbit_metrics.config import load_config
 
 def test_load_config_valid():
     config = load_config("tests/valid_config.yml")  # Replace with a valid config file path

@@ -1,4 +1,4 @@
 PyYAML~=6.0.2
 prometheus_client~=0.20.0
-cosmos_exporter~=0.1.0
 requests~=2.32.3
+orbit_metrics~=0.1.0

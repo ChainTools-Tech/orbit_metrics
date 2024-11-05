@@ -1,6 +1,6 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from cosmos_exporter.api_client import APIClient
+from orbit_metrics.api_client import APIClient
 
 @pytest.fixture
 def api_client():

@@ -1,5 +1,5 @@
 from unittest.mock import patch, MagicMock
-from cosmos_exporter.exporter import fetch_metrics
+from orbit_metrics.exporter import fetch_metrics
 
 
 def test_fetch_metrics():
@@ -19,7 +19,7 @@ def test_fetch_metrics():
         ]
     }
 
-    with patch("cosmos_exporter.api_client.APIClient") as MockAPIClient:
+    with patch("orbit_metrics.api_client.APIClient") as MockAPIClient:
         mock_client = MockAPIClient.return_value
 
         # Mock the return values for each method
