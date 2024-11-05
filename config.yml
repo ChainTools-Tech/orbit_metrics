@@ -1,0 +1,31 @@
+nodes:
+  - name: "AssetMantle"
+    api_url: "https://rest.assetmantle.one:443/"
+    main_denom: "umntl"
+    validators:
+      - validator_id: "mantlevaloper18w60w6fnptk9dhqpl65mzrejmkt0vvr7u5qwp5"
+    wallets:
+      - { address: "mantle18w60w6fnptk9dhqpl65mzrejmkt0vvr7uty66p", type: "validator" }
+  - name: "Bitcanna"
+    api_url: "https://api.bitcanna.chaintools.tech:443/"
+    main_denom: "ubcna"
+    validators:
+      - validator_id: "bcnavaloper19jzepfkd9tnndyveqhukwq4aul4cjseksh70fv"
+    wallets:
+      - { address: "bcna19jzepfkd9tnndyveqhukwq4aul4cjsekf200nc", type: "validator" }
+  - name: "BitSong"
+    api_url: "https://api.bitsong.chaintools.tech:443/"
+    main_denom: "ubtsg"
+    validators:
+      - validator_id: "bitsongvaloper1x2slrjfmgxq7qx3xwmsjue73t5ynmwy7jgpdtr"
+    wallets:
+      - { address: "bitsong1vp9xldhdmjfmnwel7nl6tgy8numduq08qm4jpm", type: "relayer" }
+      - { address: "bitsong1x2slrjfmgxq7qx3xwmsjue73t5ynmwy7nvaym7", type: "validator" }
+  - name: "Sentinel"
+    api_url: "https://api.sentinel.chaintools.tech:443/"
+    main_denom: "udvpn"
+    validators:
+      - validator_id: "sentvaloper1p3u583ms39yrz7dkcetxdkn4sj66sjau4250pu"
+    wallets:
+      - address: "sent1p3u583ms39yrz7dkcetxdkn4sj66sjau20tzw4"
+      - { address: "sent1vp9xldhdmjfmnwel7nl6tgy8numduq08hf3r8m", type: "relayer" }

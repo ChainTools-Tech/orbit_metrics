@@ -1,0 +1,10 @@
+nodes:
+  - name: "ChainA"
+    api_url: "http://api.chainA.com"
+    main_denom: "udenom"
+    host: "hostname"
+    wallets:
+      - address: "addressA1"
+        type: "validator"
+    validators:
+      - validator_id: "validatorA1"
