@@ -81,32 +81,37 @@ nodes: A list of blockchain nodes to monitor.
 Run the exporter using the command line:
 
 ```bash
-python -m orbit_metrics --config-file config.yml --log-file orbit_metrics.log --log-level DEBUG
+python -m orbit_metrics --config config.yml --log-file orbit_metrics.log --log-level DEBUG
 ```
 
 ## Command-Line Options
 ```bash
---config-file: Path to the configuration file.
+--config: Path to the configuration file.
 --log-file: Path to the log file.
 --log-level: Set the logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL).
 ```
+
 
 ## Metrics
 
 The exporter exposes the following metrics to Prometheus:
 
-    orbit_chain_height: Current height of the blockchain.
-    orbit_wallet_balance: Balance of the specified wallets.
-    orbit_validator_stake: Amount of stake for validators.
-    orbit_community_tax: Community tax rate for the chain.
-    orbit_base_proposer_reward: Base proposer reward rate.
-    orbit_bonus_proposer_reward: Bonus proposer reward rate.
-    orbit_withdraw_addr_enabled: Indicator of whether withdrawal addresses are enabled.
-    orbit_mint_inflation_rate_change: Inflation rate change for minting.
-    orbit_slashing_signed_blocks_window: Signed blocks window for slashing.
-    orbit_staking_unbonding_time: Unbonding time for staked tokens.
-    orbit_staking_pool_bonded_tokens: Amount of bonded tokens in the staking pool.
-    orbit_staking_pool_not_bonded_tokens: Amount of not bonded tokens in the staking pool.
+| Metric Name                            | Label(s)                                      | Description                                                           | Data Type |
+|----------------------------------------|-----------------------------------------------|-----------------------------------------------------------------------|-----------|
+| `orbit_chain_height`                   | `chain`, `chain_id`, `moniker`                | Current height of the blockchain.                                     | Gauge     |
+| `orbit_wallet_balance`                 | `chain`, `chain_id`, `wallet`, `type`         | Balance of the specified wallet address.                              | Gauge     |
+| `orbit_validator_stake`                | `chain`, `chain_id`, `validator`, `moniker`   | Amount of stake for the specified validator.                          | Gauge     |
+| `orbit_community_tax`                  | `chain`, `moniker`                            | Community tax rate for the chain.                                     | Gauge     |
+| `orbit_base_proposer_reward`           | `chain`, `moniker`                            | Base proposer reward rate for the chain.                              | Gauge     |
+| `orbit_bonus_proposer_reward`          | `chain`, `moniker`                            | Bonus proposer reward rate for the chain.                             | Gauge     |
+| `orbit_withdraw_addr_enabled`          | `chain`, `moniker`                            | Indicator of whether withdrawal addresses are enabled.                | Gauge     |
+| `orbit_mint_inflation_rate_change`     | `chain`, `mint_denom`, `moniker`              | Inflation rate change for minting.                                    | Gauge     |
+| `orbit_slashing_signed_blocks_window`  | `chain`, `moniker`                            | Signed blocks window for slashing.                                    | Gauge     |
+| `orbit_staking_unbonding_time`         | `chain`, `bond_denom`, `moniker`              | Unbonding time for staked tokens (in seconds).                        | Gauge     |
+| `orbit_staking_pool_bonded_tokens`     | `chain`, `moniker`                            | Amount of bonded tokens in the staking pool.                          | Gauge     |
+| `orbit_staking_pool_not_bonded_tokens` | `chain`, `moniker`                            | Amount of not bonded tokens in the staking pool.                      | Gauge     |
+
+
 
 ## Contributing
 

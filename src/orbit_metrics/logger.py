@@ -23,12 +23,15 @@ def setup_logging(log_file, log_level=logging.INFO):
     for handler in root_logger.handlers[:]:
         root_logger.removeHandler(handler)
 
-    # Configure file handler
-    file_handler = logging.FileHandler(filename=log_file, encoding='utf-8', mode='w')
-    file_handler.setFormatter(log_formatter)
-    root_logger.addHandler(file_handler)
+    # Configure file handler if log_file is provided
+    if log_file:
+        file_handler = logging.FileHandler(filename=log_file, encoding='utf-8', mode='w')
+        file_handler.setFormatter(log_formatter)
+        root_logger.addHandler(file_handler)
 
     # Configure console handler
     console_handler = logging.StreamHandler(sys.stdout)
     console_handler.setFormatter(log_formatter)
     root_logger.addHandler(console_handler)
+
+    return root_logger
