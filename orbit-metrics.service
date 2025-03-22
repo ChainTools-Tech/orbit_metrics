@@ -1,0 +1,30 @@
+[Unit]
+Description=Orbit Metrics - Prometheus exporter for Cosmos SDK blockchains
+Documentation=https://github.com/ChainTools-Tech/orbit_metrics
+After=network.target
+
+[Service]
+Type=simple
+User=orbit-metrics
+Group=orbit-metrics
+WorkingDirectory=/opt/orbit_metrics
+ExecStart=/opt/orbit_metrics/venv/bin/orbit_metrics --config /etc/orbit_metrics/config.yml --log-file /var/log/orbit_metrics/orbit_metrics.log --log-level INFO
+Restart=on-failure
+RestartSec=10
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=orbit-metrics
+
+# Resource limits (optional)
+LimitNOFILE=65536
+#CPUQuota=50%
+#MemoryLimit=256M
+
+# Security options (recommended)
+NoNewPrivileges=true
+ProtectSystem=full
+ProtectHome=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
