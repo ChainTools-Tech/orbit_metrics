@@ -202,10 +202,12 @@ A sample Grafana dashboard is available in the `dashboards` directory. Import it
 Check the logs for more detailed error messages.
 
 
-## Deployment Options
+## Deployment
 
-- For Docker deployment, see [DOCKER.md](DOCKER.md)
-- For systemd service deployment, see [SYSTEMD.md](SYSTEMD.md)
+For deployment instructions:
+
+- [Docker deployment](./deployment/docker)
+- [Systemd service deployment](./deployment/systemd)
 
 
 ## Contributing
