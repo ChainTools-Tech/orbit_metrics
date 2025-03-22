@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  orbit-metrics:
+    build: .
+    container_name: orbit-metrics
+    ports:
+      - "8000:8000"  # Map container port to host
+    volumes:
+      - ./config:/app/config  # Mount local config directory
+      - orbit_metrics_logs:/var/log/orbit_metrics  # Use volume for logs
+    environment:
+      - CONFIG_PATH=/app/config/config.yml
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    networks:
+      - monitoring_network
+
+networks:
+  monitoring_network:
+    name: monitoring_network
+    external: true  # Assumes monitoring network already exists with Prometheus/Grafana
+
+volumes:
+  orbit_metrics_logs:  # Persistent volume for logs
