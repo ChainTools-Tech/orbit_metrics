@@ -1,3 +1,9 @@
+# Global configuration
+prometheus:
+  port: 8000  # Change this to your desired port number
+refresh_interval: 60  # Seconds between metric updates
+
+# Blockchain nodes to monitor
 nodes:
   - name: "AssetMantle"
     api_url: "https://rest.assetmantle.one:443/"

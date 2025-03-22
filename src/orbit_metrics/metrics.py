@@ -1,28 +1,52 @@
-from prometheus_client import Gauge
-
-# /cosmos/base/tendermint/v1beta1/blocks/latest
-chain_height_gauge = Gauge('orbit_metrics_chain_height',
-                           'Current block height of the blockchain',
-                           ['chain', 'chain_id', 'host'])
-
-# /cosmos/bank/v1beta1/balances/{wallet_address}
-wallet_balance_gauge = Gauge('orbit_metrics_wallet_balance',
-                             'Balance of the wallet in the blockchain',
-                             ['chain', 'chain_id', 'wallet', 'type'])
-
-# /cosmos/staking/v1beta1/validators/{validator_address}
-validator_stake_gauge = Gauge('orbit_metrics_validator_stake',
-                              'Amount of stake on a validator',
-                              ['chain', 'chain_id', 'validator'])
+from prometheus_client import Gauge, Counter, Info
 
 
-"""
-/cosmos/distribution/v1beta1/params
-"""
+# Application info
+app_info = Info('orbit_metrics_info', 'Information about the Orbit Metrics exporter')
+app_info.info({
+    'version': '0.1.0',
+    'description': 'Prometheus exporter for Cosmos SDK blockchains'
+})
+
+# API metrics
+api_requests_total = Counter(
+    'orbit_metrics_api_requests_total',
+    'Total number of API requests made',
+    ['chain', 'endpoint', 'status']
+)
+
+api_request_duration = Gauge(
+    'orbit_metrics_api_request_duration_seconds',
+    'Duration of API requests in seconds',
+    ['chain', 'endpoint']
+)
+
+# Main chain metrics
+chain_height_gauge = Gauge(
+    'orbit_metrics_chain_height',
+    'Current block height of the blockchain',
+    ['chain', 'chain_id', 'host']
+)
+
+# Wallet metrics
+wallet_balance_gauge = Gauge(
+    'orbit_metrics_wallet_balance',
+    'Balance of the wallet in the blockchain',
+    ['chain', 'chain_id', 'wallet', 'type']
+)
+
+# Validator metrics
+validator_stake_gauge = Gauge(
+    'orbit_metrics_validator_stake',
+    'Amount of stake on a validator',
+    ['chain', 'chain_id', 'validator']
+)
+
+# Distribution parameters
 community_tax_gauge = Gauge(
     'orbit_metrics_community_tax',
     'Community tax percentage',
-    ['chain']  # You can add other labels if needed
+    ['chain']
 )
 
 base_proposer_reward_gauge = Gauge(
@@ -43,14 +67,11 @@ withdraw_addr_enabled_gauge = Gauge(
     ['chain']
 )
 
-
-"""
-/cosmos/mint/v1beta1/params
-"""
+# Mint parameters
 inflation_rate_change_gauge = Gauge(
     'orbit_metrics_inflation_rate_change',
     'Inflation rate change percentage',
-    ['chain', 'mint_denom']  # Include mint_denom as a label
+    ['chain', 'mint_denom']
 )
 
 inflation_max_gauge = Gauge(
@@ -77,10 +98,7 @@ blocks_per_year_gauge = Gauge(
     ['chain', 'mint_denom']
 )
 
-
-"""
-/cosmos/slashing/v1beta1/params
-"""
+# Slashing parameters
 signed_blocks_window_gauge = Gauge(
     'orbit_metrics_signed_blocks_window',
     'Number of signed blocks in the window',
@@ -111,14 +129,11 @@ slash_fraction_downtime_gauge = Gauge(
     ['chain']
 )
 
-
-"""
-/cosmos/staking/v1beta1/params
-"""
+# Staking parameters
 unbonding_time_gauge = Gauge(
     'orbit_metrics_unbonding_time',
     'Unbonding time in seconds',
-    ['chain', 'bond_denom']  # Include bond_denom as a label
+    ['chain', 'bond_denom']
 )
 
 max_validators_gauge = Gauge(
@@ -139,10 +154,7 @@ historical_entries_gauge = Gauge(
     ['chain', 'bond_denom']
 )
 
-
-"""
-/cosmos/staking/v1beta1/pool
-"""
+# Staking pool metrics
 bonded_tokens_gauge = Gauge(
     'orbit_metrics_bonded_tokens',
     'Total bonded tokens in the staking pool',
@@ -152,5 +164,23 @@ bonded_tokens_gauge = Gauge(
 not_bonded_tokens_gauge = Gauge(
     'orbit_metrics_not_bonded_tokens',
     'Total not bonded tokens in the staking pool',
+    ['chain']
+)
+
+# Exporter internal metrics
+last_scrape_duration = Gauge(
+    'orbit_metrics_last_scrape_duration_seconds',
+    'Duration of the last metrics collection in seconds'
+)
+
+scrape_failures_total = Counter(
+    'orbit_metrics_scrape_failures_total',
+    'Total number of scrape failures by chain',
+    ['chain']
+)
+
+up = Gauge(
+    'orbit_metrics_up',
+    'Indicates if the exporter is up and running (1 for up, 0 for down)',
     ['chain']
 )
