@@ -202,15 +202,10 @@ A sample Grafana dashboard is available in the `dashboards` directory. Import it
 Check the logs for more detailed error messages.
 
 
-## Docker Support
+## Deployment Options
 
-Orbit Metrics can be easily deployed using Docker:
-
-```bash
-# Quick start with Docker Compose
-docker-compose up -d
-```
-For detailed Docker deployment instructions, configuration options, and monitoring stack integration, see DOCKER.md.
+- For Docker deployment, see [DOCKER.md](DOCKER.md)
+- For systemd service deployment, see [SYSTEMD.md](SYSTEMD.md)
 
 
 ## Contributing
