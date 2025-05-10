@@ -16,10 +16,8 @@ mirror_clean_publish:
     - git config --global user.name "GitLab CI"
 
     # Add GitHub as a remote if not present
-    - |
-      if ! git remote | grep -q github; then
-        git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${CI_PROJECT_NAME}.git
-      fi
+    - git remote remove github || true
+    - git remote add github "https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${CI_PROJECT_NAME}.git"
 
     # Checkout master and pull latest
     - git checkout "$PUBLISH_BRANCH"
