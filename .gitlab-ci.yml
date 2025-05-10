@@ -16,7 +16,7 @@ mirror_clean_publish:
     # Add GitHub as a remote if not present
     - |
       if ! git remote | grep -q github; then
-        git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_USERNAME}/${CI_PROJECT_NAME}.git
+        git remote add github https://${GITHUB_USERNAME}:${GITHUB_TOKEN}@github.com/${GITHUB_OWNER}/${CI_PROJECT_NAME}.git
       fi
 
     # Checkout master and pull latest
