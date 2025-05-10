@@ -112,7 +112,6 @@ The exporter exposes the following metrics to Prometheus:
 | `orbit_staking_pool_not_bonded_tokens` | `chain`, `moniker`                            | Amount of not bonded tokens in the staking pool.                      | Gauge     |
 
 
-
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request.
@@ -121,3 +120,6 @@ Contributions are welcome! Please open an issue or submit a pull request.
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+---
+Internal tag: 001
