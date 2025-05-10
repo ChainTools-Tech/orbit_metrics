@@ -10,6 +10,8 @@ variables:
 mirror_clean_publish:
   stage: mirror
   script:
+    - echo "GITHUB_OWNER='${GITHUB_OWNER}'"
+    - echo "CI_PROJECT_NAME='${CI_PROJECT_NAME}'"
     - git config --global user.email "qf3l3k@gmail.com"
     - git config --global user.name "GitLab CI"
 
