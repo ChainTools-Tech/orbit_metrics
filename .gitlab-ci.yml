@@ -2,8 +2,6 @@ stages:
   - mirror
 
 variables:
-  GITHUB_USERNAME: $GITHUB_USERNAME
-  GITHUB_TOKEN: $GITHUB_TOKEN
   GIT_DEPTH: 0
   GITHUB_BRANCH: main
   PUBLISH_BRANCH: publish
