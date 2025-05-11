@@ -42,7 +42,7 @@ mirror_clean_publish:
       fi
 
     # Force push temp branch to GitHub as main
-    - git push -f github "$TEMP_BRANCH:$GITHUB_BRANCH"
+    - GIT_TRACE=1 git push -f github "$TEMP_BRANCH:$GITHUB_BRANCH"
     - git push --tags github
     - git checkout "$PUBLISH_BRANCH"
     - git branch -D "$TEMP_BRANCH"
